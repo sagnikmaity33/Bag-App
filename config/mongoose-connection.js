@@ -1,18 +1,18 @@
 const mongoose = require('mongoose');
-const config = require('config');
+const debug = require('debug')("development:mongoose");
 
-const dbgr = require('debug')("development: mongoose");
+const MONGO_URI = process.env.MONGO_URI;
 
+if (!MONGO_URI) {
+  throw new Error("MONGO_URI environment variable is not set");
+}
 
-// mongoose.connect(`${config.get("MONGODB_URI")}/Bag-app`)
-mongoose.connect("mongodb+srv://SagnikMaity:sagnik123@cluster0.1p6ey.mongodb.net/")
-.then(function (){
-    // console.log("Connected to Mongo")
-    dbgr("connected");
-})
-.catch(function (err) {
-    dbgr(err)
-})
+mongoose.connect(MONGO_URI)
+  .then(() => {
+    debug("Connected to MongoDB");
+  })
+  .catch((err) => {
+    debug("Error connecting to MongoDB:", err);
+  });
 
-
-module.exports = mongoose.connection
+module.exports = mongoose.connection;

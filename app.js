@@ -4,7 +4,9 @@ const cookieParser = require("cookie-parser")
 const path = require("path")
 const expressSession = require("express-session")
 const flash = require("flash")
+
 require("dotenv").config();
+const PORT = process.env.PORT || 3000
 
 const ownersRouter = require("./routes/ownersRouter")
 const productsRouter = require("./routes/productsRouter")
@@ -37,4 +39,4 @@ app.use("/users", usersRouter);
 app.use("/products", productsRouter);
 
 
-app.listen(3000)
+app.listen(PORT)
